@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My first Vue app</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@2"></script>
+</head>
+<body>
+<div id="app">
+    <div class="container-sm">
+        <div class="row justify-content-center align-items-center">
+            <form class="row g-3" @submit.prevent='onSubmit'>
+                <div class="col">
+                    <label for="inputUrl" class="visually-hidden">Password</label>
+                    <input v-model="clientLink" type="url" class="form-control" id="inputUrl" placeholder="Enter URL">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Get short URL</button>
+                </div>
+            </form>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <a v-bind:href="shortUrl">{{ currentDomain }}</a>
+        </div>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            clientLink: '',
+            urlProcessing: '/',
+            shortUrl: '',
+        },
+        computed: {
+            currentDomain: function () {
+                if (this.shortUrl) {
+                    return window.location.origin + '/' + this.shortUrl;
+                }
+            }
+        },
+        methods: {
+            async onSubmit() {
+                console.log('onSubmit  event');
+                try {
+                    const response = await fetch(this.urlProcessing, {
+                        method: 'POST',
+                        body: `clientLink=${this.clientLink}`,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    });
+                    this.shortUrl = await response.text();
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                }
+            },
+
+        }
+    })
+</script>
+</body>
+</html>

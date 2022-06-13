@@ -1,0 +1,10 @@
+<?php
+
+const DB_DRIVER = 'mysql';
+const DB_HOST = 'localhost';
+const DB_NAME = 'testdb';
+const DB_USER = 'root';
+const DB_PASSWORD = '';
+
+const ERROR_REDIRECT_TEXT = 'Редирект не возможен, такая ссылка не обрабатывалась ранее';
+

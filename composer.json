@@ -1,0 +1,9 @@
+{
+    "name": "nik2/tz-emailmatrix",
+    "description": "testovoe zadanie",
+    "type": "project",
+    "require": {
+        "phroute/phroute": "^2.2",
+        "hashids/hashids": "^4.1"
+    }
+}
